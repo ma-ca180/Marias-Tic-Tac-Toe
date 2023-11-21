@@ -1,0 +1,59 @@
+import random
+
+# Letters to choose from
+CHOICES = {'R': 'Rock', 'P': 'Paper', 'S': 'Scissors'}
+
+# Scores of both sides
+user_count = 0
+comp_count = 0
+
+start_message = input("Welcome to Maria's Project 3! Press Enter to start and Play a simple game of Rock, Paper, Scissors!")
+
+#Start of the game
+games = int(input("\nHow many games do you want to play?: "))
+
+# Functions
+def get_user_input():
+    while True:
+        user_input = input("\nChoose either R, P, or S: ")[0].upper()
+        if user_input in CHOICES:
+            return user_input
+        else:
+            print("INVALID INPUT, PLEASE TRY AGAIN USING R,P OR S!")
+
+def get_comp_input():
+    return random.choice(list(CHOICES.keys()))
+
+def determine_winner(user, comp):
+    if (user == 'R' and comp == 'P') or (user == 'P' and comp == 'S') or (user == 'S' and comp == 'R'):
+        return 'Computer'
+    elif (user == 'P' and comp == 'R') or (user == 'S' and comp == 'P') or (user == 'R' and comp == 'S'):
+        return 'User'
+    else:
+        return 'Tie'
+
+while comp_count + user_count < games:
+    user_input = get_user_input()
+    comp_input = get_comp_input()
+
+    print("Computer's Input:", CHOICES[comp_input])
+
+    winner = determine_winner(user_input, comp_input)
+    if winner == 'User':
+        user_count += 1
+    elif winner == 'Computer':
+        comp_count += 1
+
+    print("\nSCORE:")
+    print("User Score:", user_count, "\tComputer Score:", comp_count)
+
+# Final Results
+print("\n\t\tFINAL SCORE:")
+print("User Score:", user_count, "\t\t\tComputer Score:", comp_count)
+
+if user_count > comp_count:
+    print("\n\tCONGRATULATIONS! YOU WON! :)\nPress enter to play again!")
+elif user_count < comp_count:
+    print("\n\t\tUH OH, SORRY! YOU LOST!\nWant to play again? Press Enter to play again!")
+else:
+    print("\n\t\tBetter luck next time! It's a tie!\n Press enter to try again!")
